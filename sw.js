@@ -1,5 +1,35 @@
 
 self.addEventListener('fetch', event => {
+
+    ///En este ekjemplo en el img del html esta mal el nombre del aimagen , esto es para simular 
+    //que no encontro algo
+        
+    //Frecordar que en request vienen las respuestas y una parte del json es un Ok: tru/false para indicar si la misma fallo o no
+
+    const resp = fetch ( event.request )
+                .then ( respu => {
+
+                    return respu.ok ? respu : fetch('img/main.jpg')
+
+                    //este es el condicional ternario 
+                    // [comdicion Logica] ? [ verdadero] : [ falso]
+                });
+
+    event.respondWith ( resp );
+
+
+
+
+    // //Tercer Ejemplo Interceptar imgaen y cambiarla
+
+    // if ( event.request.url.includes('main.jpg')){
+
+    //     const nuevaFoto=fetch('img/main-patas-arriba.jpg');
+
+    //     event.respondWith( nuevaFoto);
+    // }
+
+
     //Primer ejemplo de como interceptar fetch
     // if ( event.request.url.includes('.jpg')){
         
@@ -18,20 +48,20 @@ self.addEventListener('fetch', event => {
     //Segundo Ejemplo
     //Reemplazo lo que viene del archivo style.css por lo suqe Yo Quiero
     
-    if ( event.request.url.includes('style.css')) {
+    // if ( event.request.url.includes('style.css')) {
     
-        const respuesta= new Response(`
-            body {
-                background-color: red;
-                color: pink;
-            }
-        `, {
-            headers: {
-                'Content-Type': 'text/css'                    
-            }
-        });
+    //     const respuesta= new Response(`
+    //         body {
+    //             background-color: red;
+    //             color: pink;
+    //         }
+    //     `, {
+    //         headers: {
+    //             'Content-Type': 'text/css'                    
+    //         }
+    //     });
     
-        event.respondWith( respuesta);
+    //     event.respondWith( respuesta);
     
-    }
+    // }
 })
